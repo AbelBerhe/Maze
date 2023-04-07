@@ -6,6 +6,7 @@
 #include <iostream>
 #include "Maze.h"
 #include "Coordinate.h"
+#include <string>
 
 
 Maze::Maze() = default;
@@ -14,12 +15,10 @@ Maze::~Maze() = default;
 
 
 //load maze to double dimensional vector
-void Maze::loadToMaze() {
+void Maze::loadToMaze(std::string file) {
+    std::string dirName = "tests";
     //declare file reader and passing the file.
-    //std::ifstream  fin(R"(C:\Users\abelg\CLionProjects\assignment-2-Abel-Berhe\docs\maze.txt)");
-    //std::ifstream  fin(R"(C:\Users\abelg\CLionProjects\assignment-2-Abel-Berhe\tests\test.txt)");
-    //std::ifstream  fin(R"(C:\Users\abelg\CLionProjects\assignment-2-Abel-Berhe\tests\test2.txt)");
-    std::ifstream fin(R"(C:\Users\abelg\CLionProjects\assignment-2-Abel-Berhe\tests\test3.txt)");
+    std::ifstream fin("../" + dirName + "/" + file);
     std::string line;
     //check if file exist
     if (fin.is_open()) {
@@ -134,10 +133,10 @@ void Maze::exploreMaze() {
 //clear maze
 void Maze::clearMaze() {
     //loop through maze and clear any marked characters
-    for (int i = 0; i < maze.size(); i++) {
-        for (int j = 0; j < maze[i].size(); j++) {
-            if (maze[i][j] == 'D' || maze[i][j] == '#') {
-                maze[i][j] = ' ';
+    for (auto &i: maze) {
+        for (char &j: i) {
+            if (j == 'D' || j == '#') {
+                j = ' ';
             }
         }
     }
@@ -145,13 +144,14 @@ void Maze::clearMaze() {
 
 //mark maze
 void Maze::markMaze() {
-    //vector stores x coordinates
-    std::vector<int> xNums = stack.xCoordinates();
-    //vector stores y coordinates
-    std::vector<int> yNums = stack.yCoordinates();
-    //loop through maze and mark spot with # character at the right coordinates using stack
-    for (int i = 0; i < yNums.size(); i++) {
-        maze[xNums[i]][yNums[i]] = '#';
+
+
+    Coordinate c = stack.peek();
+
+    while (c.x != 1 || c.y != 0) {
+        maze[c.x][c.y] = '#';
+        stack.pop();
+        c = stack.peek();
     }
 }
 
@@ -168,12 +168,10 @@ void Maze::displayMaze() {
 }
 
 //write to file
-void Maze::writeToFile() {
+void Maze::writeToFile(std::string file) {
+    std::string dirName = "solved";
     //declare file writer
-    //std::ofstream outPut(R"(C:\Users\abelg\CLionProjects\assignment-2-Abel-Berhe\solved\maze.txt)");
-    //std::ofstream outPut(R"(C:\Users\abelg\CLionProjects\assignment-2-Abel-Berhe\solved\test.txt)");
-    //std::ofstream outPut(R"(C:\Users\abelg\CLionProjects\assignment-2-Abel-Berhe\solved\test1.txt)");
-    std::ofstream outPut(R"(C:\Users\abelg\CLionProjects\assignment-2-Abel-Berhe\solved\test2.txt)");
+    std::ofstream outPut("../" + dirName + "/" + file);
     //check if file exist
     if (outPut.is_open()) {
         for (auto &i: maze) {

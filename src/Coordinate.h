@@ -8,8 +8,6 @@
 struct Coordinate {
     int x = 0;
     int y = 0;
-
-    friend std::ostream &operator<<(std::ostream &output, Coordinate &student);
 };
 
 #endif //ASSIGNMENT_2_COORDINATE_H

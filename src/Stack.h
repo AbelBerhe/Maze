@@ -21,10 +21,6 @@ public:
     friend std::ostream &operator<<(std::ostream &output, Stack stack);
 
     Coordinate peek();
-
-    std::vector<int> xCoordinates();
-
-    std::vector<int> yCoordinates();
 };
 
 #endif //ASSIGNMENT_2_STACK_H

@@ -7,10 +7,11 @@
 
 #include <vector>
 #include "Stack.h"
+#include <string>
 
 class Maze {
-    Stack stack;
 private:
+    Stack stack;
     std::vector<std::vector<char>> maze;
 public:
     Maze();
@@ -19,7 +20,7 @@ public:
 
     void displayMaze();
 
-    void loadToMaze();
+    void loadToMaze(std::string file);
 
     void exploreMaze();
 
@@ -27,7 +28,7 @@ public:
 
     void markMaze();
 
-    void writeToFile();
+    void writeToFile(std::string file);
     //bool isNotVisited(int x, int y);
 };
 
